@@ -14,7 +14,7 @@ export default function Examples() {
   const measure = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
-    const total = Math.max(1, Math.ceil(el.scrollWidth / el.clientWidth));
+    const total = Math.max(1, Math.ceil((el.scrollWidth - 8) / el.clientWidth));
     setPages(total);
     setPage(Math.min(total - 1, Math.round(el.scrollLeft / el.clientWidth)));
   }, []);
@@ -25,12 +25,6 @@ export default function Examples() {
     return () => window.removeEventListener("resize", measure);
   }, [measure]);
 
-  const go = (dir: 1 | -1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * el.clientWidth, behavior: "smooth" });
-  };
-
   const goTo = (i: number) => {
     const el = trackRef.current;
     if (!el) return;
@@ -38,7 +32,7 @@ export default function Examples() {
   };
 
   const togglePlay = (i: number, src: string) => {
-    // Mock player: sin audio real todavía. Si el item tiene audioSrc, reproduce de verdad.
+    // Reproductor mock: las canciones se conectarán en una versión posterior.
     if (playing === i) {
       audioRef.current?.pause();
       setPlaying(null);
@@ -60,47 +54,30 @@ export default function Examples() {
         <span className="title-underline" aria-hidden="true" />
 
         <div className="relative mt-12">
-          {/* Arrows (desktop) */}
-          <button
-            type="button"
-            onClick={() => go(-1)}
-            aria-label="Ver ejemplos anteriores"
-            className="absolute -left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-brand-navy shadow-card hover:shadow-card-hover lg:flex"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M15 6l-6 6 6 6" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={() => go(1)}
-            aria-label="Ver más ejemplos"
-            className="absolute -right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-brand-navy shadow-card hover:shadow-card-hover lg:flex"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M9 6l6 6-6 6" />
-            </svg>
-          </button>
-
-          {/* Track */}
+          {/* Pista: carrusel táctil en móvil, fila de 4 alineadas en escritorio */}
           <div
             ref={trackRef}
             onScroll={measure}
-            className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-2 sm:mx-0 sm:px-0"
+            className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-5 pb-2 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-visible"
           >
             {examplesSection.items.map((item, i) => (
               <article
                 key={item.name}
-                className="card card-lift group relative w-[72%] shrink-0 snap-start overflow-hidden xs:w-[46%] sm:w-[31%] lg:w-[calc(16.666%-14px)] lg:min-w-[170px]"
+                className="group relative w-[74%] shrink-0 snap-start overflow-hidden rounded-card border border-brand-line/50 bg-white shadow-card ring-1 ring-transparent transition-all duration-300 ease-premium hover:-translate-y-1.5 hover:shadow-card-hover hover:ring-brand-red/15 xs:w-[46%] sm:w-[31%] lg:w-auto"
               >
-                <div className="relative aspect-[4/5]">
+                <div className="relative aspect-[4/5] overflow-hidden">
                   <img
                     src={item.image}
                     alt={`Portada de la canción: ${item.name}`}
-                    width={400}
-                    height={500}
+                    width={800}
+                    height={1000}
                     loading="lazy"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition-transform duration-500 ease-premium group-hover:scale-[1.04]"
+                  />
+                  {/* Degradado inferior sutil para integrar la tarjeta */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-brand-navy-deep/35 to-transparent"
                   />
                   <button
                     type="button"
@@ -114,27 +91,29 @@ export default function Examples() {
                     className="absolute inset-0 flex items-center justify-center"
                   >
                     <span
-                      className={`flex h-12 w-12 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-all duration-300 ease-premium group-hover:scale-110 group-hover:bg-brand-red/90 ${
-                        playing === i ? "animate-pulse bg-brand-red/90" : ""
+                      className={`flex h-14 w-14 items-center justify-center rounded-full text-white shadow-cta backdrop-blur-sm transition-all duration-300 ease-premium group-hover:scale-110 ${
+                        playing === i
+                          ? "animate-pulse bg-brand-red/95"
+                          : "bg-brand-navy-deep/60 group-hover:bg-brand-red/90"
                       }`}
                     >
                       {playing === i ? (
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                           <path d="M4 2h3v12H4zM9 2h3v12H9z" />
                         </svg>
                       ) : (
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                           <path d="M4.5 2.6a1 1 0 0 1 1.53-.85l7.5 4.9a1 1 0 0 1 0 1.7l-7.5 4.9a1 1 0 0 1-1.53-.85V2.6z" />
                         </svg>
                       )}
                     </span>
                   </button>
                 </div>
-                <div className="px-3 py-3 text-center">
-                  <h3 className="text-sm font-extrabold text-brand-navy">
+                <div className="px-4 py-4 text-center">
+                  <h3 className="text-[15px] font-extrabold tracking-tight text-brand-navy">
                     {item.name}
                   </h3>
-                  <p className="mt-1 text-[11px] leading-snug text-brand-body">
+                  <p className="mt-1 text-xs leading-snug text-brand-body">
                     {item.caption}
                   </p>
                 </div>
@@ -142,21 +121,23 @@ export default function Examples() {
             ))}
           </div>
 
-          {/* Dots */}
-          <div className="mt-4 flex justify-center gap-2">
-            {Array.from({ length: pages }).map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => goTo(i)}
-                aria-label={`Ir a la página ${i + 1} de ejemplos`}
-                aria-current={page === i}
-                className={`h-2 rounded-full transition-all ${
-                  page === i ? "w-5 bg-brand-red" : "w-2 bg-brand-line"
-                }`}
-              />
-            ))}
-          </div>
+          {/* Puntos de paginación: solo en móvil, cuando hay más de una página */}
+          {pages > 1 && (
+            <div className="mt-5 flex justify-center gap-2 lg:hidden">
+              {Array.from({ length: pages }).map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => goTo(i)}
+                  aria-label={`Ir a la página ${i + 1} de ejemplos`}
+                  aria-current={page === i}
+                  className={`h-2 rounded-full transition-all duration-300 ease-premium ${
+                    page === i ? "w-6 bg-brand-red" : "w-2.5 bg-brand-line"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

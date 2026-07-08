@@ -1,4 +1,4 @@
-# CUATRO DIVANGO — Landing V1.2
+# CUATRO DIVANGO — Landing V1.3
 
 **Tu historia hecha canción.**
 
@@ -104,6 +104,19 @@ que la puntuación numérica de Lighthouse debe correrse localmente:
 `npx lighthouse http://localhost:3000 --view`. Con página estática, 92 kB de
 JS, cero webfonts y cero third-parties, el rango esperado es 95–100 en las
 cuatro categorías.
+
+## Novedades v1.3
+
+- **Sección de ejemplos rediseñada:** exactamente 4 tarjetas en orden fijo
+  (Hormiga González, Chivas, Alan Pulido, Alexis Vega) con las portadas finales.
+- Imágenes optimizadas: 3.3 MB → 388 KB, encuadre original 800×1000 intacto
+  en las cuatro (alturas idénticas, alineación perfecta).
+- Tarjetas premium: elevación al hover, zoom suave de imagen (500ms), anillo
+  rojo sutil, degradado inferior de integración, mayor separación (24px).
+- Escritorio: fila de 4 alineadas. Móvil: carrusel táctil con puntos (sin cambios
+  de comportamiento responsive).
+- Botón play conservado (mock). Canciones/YouTube/Spotify: pendiente de conexión.
+- Hero, precio, formulario, navegación, SEO, rutas y demás secciones: **intactos**.
 
 ## Novedades v1.2
 

@@ -75,39 +75,27 @@ export const examplesSection = {
   title: "Ya hemos creado canciones para historias reales",
   items: [
     {
-      name: "Alan Pulido",
-      caption: "Canción inspirada en su historia",
-      image: "/images/ejemplo-delantero.svg",
-      audioSrc: "", // pendiente: /audio/alan-pulido.mp3
+      name: "Hormiga González",
+      caption: "Canción inspirada en su historia.",
+      image: "/images/caso-hormiga.jpg",
+      audioSrc: "", // pendiente: conectar canción
     },
     {
-      name: "Hormiga González",
-      caption: "Canción inspirada en su historia",
-      image: "/images/ejemplo-capitan.svg",
+      name: "Chivas",
+      caption: "Canción dedicada a la pasión rojiblanca.",
+      image: "/images/caso-chivas.png",
+      audioSrc: "",
+    },
+    {
+      name: "Alan Pulido",
+      caption: "Canción inspirada en su historia.",
+      image: "/images/caso-pulido.jpg",
       audioSrc: "",
     },
     {
       name: "Alexis Vega",
-      caption: "Canción inspirada en su historia",
-      image: "/images/ejemplo-aficionado.svg",
-      audioSrc: "",
-    },
-    {
-      name: "Para mi hijo",
-      caption: "Una canción de amor que lo acompañará siempre",
-      image: "/images/ejemplo-hijo.svg",
-      audioSrc: "",
-    },
-    {
-      name: "Para mi novia",
-      caption: "Nuestra historia hecha canción",
-      image: "/images/ejemplo-novia.svg",
-      audioSrc: "",
-    },
-    {
-      name: "Cumpleaños",
-      caption: "Un cumpleaños inolvidable",
-      image: "/images/ejemplo-cumple.svg",
+      caption: "Canción inspirada en su historia.",
+      image: "/images/caso-vega.jpg",
       audioSrc: "",
     },
   ],
