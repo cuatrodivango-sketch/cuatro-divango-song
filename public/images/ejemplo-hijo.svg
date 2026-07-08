@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Canción para mi hijo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8a5a12"/>
+      <stop offset="100%" stop-color="#0B1430"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#g)"/>
+  <g fill="#ffffff" opacity="0.14">
+    <circle cx="200" cy="185" r="72"/>
+    <path d="M200 250 c -86 0 -142 62 -150 155 l 300 0 c -8 -93 -64 -155 -150 -155 z"/>
+  </g>
+  <g fill="#ffffff" opacity="0.25">
+    <circle cx="322" cy="96" r="9"/>
+    <path d="M322 96 l 0 -42 15 -4 0 42" stroke="#ffffff" stroke-width="6" fill="none"/>
+  </g>
+</svg>
