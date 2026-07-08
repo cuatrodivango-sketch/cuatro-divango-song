@@ -7,7 +7,7 @@ export default function FinalCta() {
       <div className="shell">
         <div className="relative overflow-hidden rounded-card bg-brand-navy-deep">
           <div className="grid items-center gap-6 md:grid-cols-[1.2fr_1fr]">
-            <div className="relative z-10 px-6 py-10 sm:px-10 sm:py-12">
+            <div className="relative z-10 px-7 py-11 sm:px-11 sm:py-14">
               <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">
                 {finalCta.title.map((line) => (
                   <span key={line} className="block">

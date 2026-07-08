@@ -3,7 +3,7 @@ import SongForm from "./SongForm";
 
 export default function FormSection() {
   return (
-    <section id="formulario" className="bg-brand-paper py-14 sm:py-16">
+    <section id="formulario" className="bg-brand-paper py-16 sm:py-20">
       <div className="shell grid items-start gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-14">
         <div>
           <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-brand-navy sm:text-4xl">

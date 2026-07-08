@@ -1,6 +1,6 @@
 {
   "name": "cuatro-divango",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Landing premium de Cuatro Divango — Tu historia hecha canción",
   "scripts": {
@@ -10,6 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"

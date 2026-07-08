@@ -25,9 +25,12 @@ export const hero = {
   sub3: "Una canción no.",
   ctaPrimary: "Crear mi canción",
   ctaSecondary: "Ver ejemplos",
+  pricePrefix: "Desde",
+  priceAmount: "$499 MXN",
+  priceCaption: "Canción personalizada completa.",
   proofTitle: "+300 canciones creadas",
   proofSub: "Historias que se convirtieron en música.",
-  image: "/images/hero.svg",
+  image: "/images/hero.png",
   imageAlt:
     "Ilustración de un futbolista cantando con una explosión de pintura roja y azul y notas musicales",
 };
@@ -135,7 +138,6 @@ export const formSection = {
   heading: ["Cuéntanos tu historia", "y la convertiremos", "en una canción."],
   bullets: [
     "100% personalizada",
-    "Hecha con IA y producción profesional",
     "Entrega en 48–72 horas",
     "Formato de audio de alta calidad",
   ],

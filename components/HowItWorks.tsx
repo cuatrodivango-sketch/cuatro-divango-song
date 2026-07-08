@@ -38,7 +38,7 @@ function StepIcon({ name }: { name: string }) {
 
 export default function HowItWorks() {
   return (
-    <section id="como-funciona" className="bg-white py-14 sm:py-16">
+    <section id="como-funciona" className="bg-white py-16 sm:py-20">
       <div className="shell">
         <h2 className="section-title">{howSection.title}</h2>
         <span className="title-underline" aria-hidden="true" />
@@ -51,7 +51,7 @@ export default function HowItWorks() {
           />
           {howSection.steps.map((step, i) => (
             <li key={step.title} className="relative flex flex-col items-center text-center">
-              <span className="relative z-10 flex h-[76px] w-[76px] items-center justify-center rounded-full border-2 border-brand-line bg-white text-brand-navy">
+              <span className="relative z-10 flex h-[76px] w-[76px] items-center justify-center rounded-full border border-brand-line bg-white text-brand-navy shadow-card">
                 <StepIcon name={step.icon} />
                 <span className="absolute -left-1.5 -top-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-brand-red text-xs font-extrabold text-white">
                   {i + 1}

@@ -54,12 +54,12 @@ export default function Examples() {
   };
 
   return (
-    <section id="ejemplos" className="bg-white py-14 sm:py-16">
+    <section id="ejemplos" className="bg-white py-16 sm:py-20">
       <div className="shell">
         <h2 className="section-title">{examplesSection.title}</h2>
         <span className="title-underline" aria-hidden="true" />
 
-        <div className="relative mt-10">
+        <div className="relative mt-12">
           {/* Arrows (desktop) */}
           <button
             type="button"
@@ -91,7 +91,7 @@ export default function Examples() {
             {examplesSection.items.map((item, i) => (
               <article
                 key={item.name}
-                className="card group relative w-[72%] shrink-0 snap-start overflow-hidden xs:w-[46%] sm:w-[31%] lg:w-[calc(16.666%-14px)] lg:min-w-[170px]"
+                className="card card-lift group relative w-[72%] shrink-0 snap-start overflow-hidden xs:w-[46%] sm:w-[31%] lg:w-[calc(16.666%-14px)] lg:min-w-[170px]"
               >
                 <div className="relative aspect-[4/5]">
                   <img
@@ -114,7 +114,7 @@ export default function Examples() {
                     className="absolute inset-0 flex items-center justify-center"
                   >
                     <span
-                      className={`flex h-12 w-12 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-transform group-hover:scale-110 ${
+                      className={`flex h-12 w-12 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-all duration-300 ease-premium group-hover:scale-110 group-hover:bg-brand-red/90 ${
                         playing === i ? "animate-pulse bg-brand-red/90" : ""
                       }`}
                     >

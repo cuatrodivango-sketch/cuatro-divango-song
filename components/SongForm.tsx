@@ -30,7 +30,7 @@ const EMPTY: FormData = {
 const TOTAL_STEPS = 6;
 
 const inputCls =
-  "w-full rounded-lg border border-brand-line bg-white px-4 py-3 text-sm text-brand-ink placeholder:text-brand-muted focus:border-brand-red focus:outline-none min-h-[48px]";
+  "w-full rounded-xl border border-brand-line bg-white px-4 py-3 text-sm text-brand-ink transition-colors duration-200 placeholder:text-brand-muted focus:border-brand-red focus:outline-none min-h-[48px]";
 const labelCls = "mb-1.5 block text-sm font-bold text-brand-navy";
 const errCls = "mt-1 text-xs font-semibold text-brand-red";
 
@@ -114,7 +114,7 @@ export default function SongForm() {
   }
 
   return (
-    <div className="card px-5 py-6 sm:px-7 sm:py-7">
+    <div className="card px-5 py-6 sm:px-8 sm:py-8">
       <p className="mb-4 text-xs font-bold uppercase tracking-wide text-brand-muted">
         Paso {step + 1} de {TOTAL_STEPS}
       </p>

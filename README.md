@@ -1,4 +1,4 @@
-# CUATRO DIVANGO — Landing V1
+# CUATRO DIVANGO — Landing V1.2
 
 **Tu historia hecha canción.**
 
@@ -104,6 +104,19 @@ que la puntuación numérica de Lighthouse debe correrse localmente:
 `npx lighthouse http://localhost:3000 --view`. Con página estática, 92 kB de
 JS, cero webfonts y cero third-parties, el rango esperado es 95–100 en las
 cuatro categorías.
+
+## Novedades v1.2
+
+- **Hero:** nueva ilustración final (PNG transparente optimizado: 2.9 MB → 425 KB,
+  sin recortes ni deformación). Halo radial sutil de integración.
+- **Tipografía premium:** Plus Jakarta Sans Variable (títulos) + Inter Variable
+  (cuerpo). Autoalojadas vía @fontsource — cero requests externos.
+- **Precio visible:** "Desde $499 MXN — Canción personalizada completa." bajo el
+  texto principal del Hero, tratamiento editorial (no anuncio).
+- **Bullet eliminado** del formulario: "Hecha con IA y producción profesional".
+- **Pulido premium:** sombras en capas, radios 18px, hover con elevación,
+  transiciones 300ms con curva suave, espaciado más generoso.
+- Identidad de color, textos, SEO, rutas, formulario y lógica: **intactos**.
 
 ## ⚠️ Fix de deploy en Vercel (v1.0.1)
 
