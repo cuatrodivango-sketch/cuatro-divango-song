@@ -1,4 +1,4 @@
-# CUATRO DIVANGO — Landing V1.4
+# CUATRO DIVANGO — Landing V1.5
 
 **Tu historia hecha canción.**
 
@@ -104,6 +104,25 @@ que la puntuación numérica de Lighthouse debe correrse localmente:
 `npx lighthouse http://localhost:3000 --view`. Con página estática, 92 kB de
 JS, cero webfonts y cero third-parties, el rango esperado es 95–100 en las
 cuatro categorías.
+
+## Novedades v1.5 — Flujo de compra completo
+
+- La pantalla "¡Recibimos tu historia!" fue **eliminada**.
+- Al terminar el formulario aparece la nueva pantalla de pedido:
+  título "Revisa tu pedido", subtítulo, y resumen elegante de las 10 respuestas
+  (para quién, ocasión, historia, cómo la imagina, duración, voz, nombres,
+  sorpresa, correo y WhatsApp).
+- Tarjeta premium "Total" en navy con precio grande **$499 MXN** y
+  "Pago único. Sin mensualidades. Sin costos ocultos."
+- Botón principal **"Pagar con Mercado Pago"** → https://mpago.li/1eXt7hR
+  (pestaña nueva).
+- Separador + bloque "¿Ya realizaste el pago?" con botón verde
+  **"Enviar comprobante por WhatsApp"** → enlace wa.me con mensaje prellenado
+  (pestaña nueva).
+- Enlace discreto "← Editar mis respuestas" para volver al formulario sin
+  perder lo escrito.
+- Hero, formulario (8 pasos), tarjetas, tipografía, colores, navegación y
+  demás secciones: **intactos**.
 
 ## Novedades v1.4 — Formulario
 

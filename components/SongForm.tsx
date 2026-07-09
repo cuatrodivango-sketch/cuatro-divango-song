@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { formSection } from "@/lib/content";
+import { formSection, checkout } from "@/lib/content";
 
 type FormData = {
   recipient: string;
@@ -156,30 +156,102 @@ export default function SongForm() {
   };
 
   if (sent) {
+    const resumen: [string, string][] = [
+      ["Para quién es", data.recipient],
+      ["Ocasión", data.occasion],
+      ["Historia", data.story],
+      ["Cómo imagina la canción", data.imagine],
+      ["Duración", data.duration],
+      ["Tipo de voz", data.voice],
+      [
+        "¿Llevará nombres?",
+        data.mentionsNames === "Sí" ? `Sí — ${data.namesText}` : "No",
+      ],
+      ["¿Será sorpresa?", data.surprise],
+      ["Correo", data.clientEmail],
+      ["WhatsApp", data.clientWhatsapp],
+    ];
+
     return (
-      <div className="card flex min-h-[380px] flex-col items-center justify-center gap-4 px-6 py-10 text-center">
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-red/10 text-brand-red">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M20 6L9 17l-5-5" />
-          </svg>
-        </span>
-        <h3 className="text-xl font-extrabold text-brand-navy">
-          ¡Recibimos tu historia!
+      <div className="card px-5 py-7 sm:px-8 sm:py-9">
+        {/* Encabezado */}
+        <h3 className="text-2xl font-extrabold tracking-tight text-brand-navy">
+          {checkout.title}
         </h3>
-        <p className="max-w-sm text-sm leading-relaxed text-brand-body">
-          Muy pronto nos pondremos en contacto contigo para comenzar tu canción.
-          La recibirás en 48–72 horas una vez confirmado tu pedido.
+        <p className="mt-2 text-sm leading-relaxed text-brand-body">
+          {checkout.subtitle}
         </p>
+
+        {/* Resumen elegante de respuestas */}
+        <dl className="mt-6 divide-y divide-brand-line/70 rounded-xl border border-brand-line/70 bg-brand-paper/60">
+          {resumen.map(([k, v]) => (
+            <div key={k} className="flex flex-col gap-0.5 px-4 py-3 sm:flex-row sm:justify-between sm:gap-6">
+              <dt className="shrink-0 text-xs font-bold uppercase tracking-wide text-brand-muted sm:w-44 sm:pt-0.5">
+                {k}
+              </dt>
+              <dd className="text-sm leading-relaxed text-brand-ink sm:flex-1 sm:text-right">
+                {v || "—"}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        {/* Tarjeta premium: Total */}
+        <div className="mt-6 overflow-hidden rounded-card border border-brand-line/60 bg-brand-navy-deep px-6 py-7 text-center shadow-card">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/60">
+            {checkout.totalTitle}
+          </p>
+          <p className="mt-2 font-display text-5xl font-extrabold tracking-tight text-white">
+            {checkout.totalAmount}
+          </p>
+          <p className="mt-3 text-sm text-white/70">
+            {checkout.totalNotes.join(" ")}
+          </p>
+        </div>
+
+        {/* Botón principal: Mercado Pago */}
+        <a
+          href={checkout.payUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary mt-5 w-full text-base"
+        >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="2" y="5" width="20" height="14" rx="3" />
+            <path d="M2 10h20" />
+          </svg>
+          {checkout.payButton}
+        </a>
+
+        {/* Separador */}
+        <hr className="my-7 border-brand-line" />
+
+        {/* Bloque de confirmación por WhatsApp */}
+        <h4 className="text-lg font-extrabold tracking-tight text-brand-navy">
+          {checkout.confirmTitle}
+        </h4>
+        <p className="mt-2 text-sm leading-relaxed text-brand-body">
+          {checkout.confirmText}
+        </p>
+        <a
+          href={checkout.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn mt-4 w-full bg-[#25D366] text-base text-white shadow-[0_2px_6px_rgba(37,211,102,0.25),0_10px_26px_rgba(37,211,102,0.30)] hover:bg-[#1EBE5A] hover:shadow-[0_4px_10px_rgba(37,211,102,0.28),0_16px_38px_rgba(37,211,102,0.38)] hover:-translate-y-0.5"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8 1-.1.2-.3.2-.6.1a6.8 6.8 0 0 1-2-1.2 7.5 7.5 0 0 1-1.4-1.7c-.1-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5v-.5c0-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z" />
+          </svg>
+          {checkout.whatsappButton}
+        </a>
+
+        {/* Salida de emergencia discreta: corregir respuestas */}
         <button
           type="button"
-          className="btn-outline mt-2"
-          onClick={() => {
-            setSent(false);
-            setStep(0);
-            setData(EMPTY);
-          }}
+          onClick={() => setSent(false)}
+          className="mx-auto mt-5 block text-xs font-semibold text-brand-muted underline-offset-2 transition-colors hover:text-brand-navy hover:underline"
         >
-          Crear otra canción
+          ← Editar mis respuestas
         </button>
       </div>
     );

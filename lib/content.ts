@@ -180,3 +180,20 @@ export const footer = {
     { label: "Facebook", href: "https://facebook.com", icon: "facebook" },
   ],
 };
+
+export const checkout = {
+  title: "Revisa tu pedido",
+  subtitle:
+    "Ya tenemos toda la información para crear tu canción personalizada. Ahora solo falta realizar el pago para comenzar la producción.",
+  totalTitle: "Total",
+  totalAmount: "$499 MXN",
+  totalNotes: ["Pago único.", "Sin mensualidades.", "Sin costos ocultos."],
+  payButton: "Pagar con Mercado Pago",
+  payUrl: "https://mpago.li/1eXt7hR",
+  confirmTitle: "¿Ya realizaste el pago?",
+  confirmText:
+    "Cuando hayas terminado el pago, envíanos tu comprobante por WhatsApp para confirmar tu pedido y comenzar inmediatamente la producción.",
+  whatsappButton: "Enviar comprobante por WhatsApp",
+  whatsappUrl:
+    "https://wa.me/523321917009?text=Hola%20Cuatro%20Divango%20%F0%9F%91%8B%0A%0AYa%20realic%C3%A9%20el%20pago%20de%20mi%20canci%C3%B3n%20personalizada.%0A%0AMi%20nombre%20es%3A%20%0A%0AAdjunto%20mi%20comprobante.%0A%0A%C2%A1Muchas%20gracias!",
+};
