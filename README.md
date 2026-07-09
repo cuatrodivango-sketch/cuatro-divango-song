@@ -1,4 +1,4 @@
-# CUATRO DIVANGO — Landing V1.3
+# CUATRO DIVANGO — Landing V1.4
 
 **Tu historia hecha canción.**
 
@@ -104,6 +104,22 @@ que la puntuación numérica de Lighthouse debe correrse localmente:
 `npx lighthouse http://localhost:3000 --view`. Con página estática, 92 kB de
 JS, cero webfonts y cero third-parties, el rango esperado es 95–100 en las
 cuatro categorías.
+
+## Novedades v1.4 — Formulario
+
+- **Eliminada** la pregunta "¿Qué estilo musical prefieres?" y su selector de géneros.
+- **Nueva:** "¿Cómo imaginas tu canción?" — textarea abierto, sin ejemplos de
+  bandas, artistas ni géneros.
+- **Nueva:** "¿Qué tipo de voz prefieres?" (Masculina / Femenina / Me es indiferente).
+- **Nueva:** "¿Cuánto debería durar aproximadamente?" (2 / 3 / 4 minutos / Sin preferencia).
+- **Nueva:** "¿La canción debe mencionar nombres?" (Sí/No) → si Sí, campo
+  "¿Qué nombres deben aparecer?". Sustituye al antiguo campo obligatorio de
+  nombre del paso 1 (evita preguntar lo mismo dos veces).
+- **Nueva:** "¿La canción será una sorpresa?" (Sí/No) → si Sí, mensaje informativo.
+- Reorganizado en **8 pasos ligeros** (máx. 2 preguntas visibles a la vez).
+- Misma estética: tarjeta, inputs, botones, animaciones, puntos de progreso y
+  pantalla de éxito idénticos. Opciones como pills accesibles (radios reales).
+- Hero, ejemplos, navegación, precio, SEO, responsive: **intactos**.
 
 ## Novedades v1.3
 

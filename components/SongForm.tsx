@@ -6,9 +6,13 @@ import { formSection } from "@/lib/content";
 type FormData = {
   recipient: string;
   occasion: string;
-  name: string;
   story: string;
-  style: string;
+  imagine: string;
+  voice: string;
+  duration: string;
+  mentionsNames: string; // "Sí" | "No"
+  namesText: string;
+  surprise: string; // "Sí" | "No"
   phrases: string;
   clientName: string;
   clientEmail: string;
@@ -18,21 +22,74 @@ type FormData = {
 const EMPTY: FormData = {
   recipient: "",
   occasion: "",
-  name: "",
   story: "",
-  style: "",
+  imagine: "",
+  voice: "",
+  duration: "",
+  mentionsNames: "",
+  namesText: "",
+  surprise: "",
   phrases: "",
   clientName: "",
   clientEmail: "",
   clientWhatsapp: "",
 };
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 8;
 
 const inputCls =
   "w-full rounded-xl border border-brand-line bg-white px-4 py-3 text-sm text-brand-ink transition-colors duration-200 placeholder:text-brand-muted focus:border-brand-red focus:outline-none min-h-[48px]";
 const labelCls = "mb-1.5 block text-sm font-bold text-brand-navy";
 const errCls = "mt-1 text-xs font-semibold text-brand-red";
+
+/* Grupo de opciones tipo pill — misma estética del formulario (radios accesibles) */
+function OptionGroup({
+  legend,
+  name,
+  options,
+  value,
+  onChange,
+  error,
+}: {
+  legend: string;
+  name: string;
+  options: readonly string[];
+  value: string;
+  onChange: (v: string) => void;
+  error?: string;
+}) {
+  return (
+    <fieldset>
+      <legend className={labelCls}>{legend}</legend>
+      <div className="flex flex-wrap gap-2">
+        {options.map((opt) => {
+          const selected = value === opt;
+          return (
+            <label
+              key={opt}
+              className={`cursor-pointer select-none rounded-xl border px-4 py-2.5 text-sm font-semibold transition-all duration-200 ease-premium min-h-[44px] inline-flex items-center ${
+                selected
+                  ? "border-brand-red bg-brand-red text-white shadow-cta"
+                  : "border-brand-line bg-white text-brand-navy hover:border-brand-navy/30"
+              }`}
+            >
+              <input
+                type="radio"
+                name={name}
+                value={opt}
+                checked={selected}
+                onChange={() => onChange(opt)}
+                className="sr-only"
+              />
+              {opt}
+            </label>
+          );
+        })}
+      </div>
+      {error && <p className={errCls}>{error}</p>}
+    </fieldset>
+  );
+}
 
 export default function SongForm() {
   const [step, setStep] = useState(0);
@@ -40,20 +97,34 @@ export default function SongForm() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [sent, setSent] = useState(false);
 
-  const set = (k: keyof FormData) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-      setData((d) => ({ ...d, [k]: e.target.value }));
-      setErrors((er) => ({ ...er, [k]: undefined }));
-    };
+  const setField = (k: keyof FormData, v: string) => {
+    setData((d) => ({ ...d, [k]: v }));
+    setErrors((er) => ({ ...er, [k]: undefined }));
+  };
 
+  const set = (k: keyof FormData) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+      setField(k, e.target.value);
+
+  /* Pasos: pocos campos visibles a la vez, sensación limpia
+     0 → para quién / ocasión
+     1 → la historia
+     2 → cómo imaginas tu canción
+     3 → voz + duración
+     4 → nombres (condicional) + sorpresa (mensaje)
+     5 → frases especiales (opcional)
+     6 → contacto
+     7 → resumen y envío */
   const stepFields: (keyof FormData)[][] = useMemo(
     () => [
-      ["recipient", "occasion", "name"],
+      ["recipient", "occasion"],
       ["story"],
-      ["style"],
-      ["phrases"], // opcional
+      ["imagine"],
+      ["voice", "duration"],
+      ["mentionsNames", "namesText", "surprise"],
+      ["phrases"],
       ["clientName", "clientEmail", "clientWhatsapp"],
-      [], // resumen
+      [],
     ],
     []
   );
@@ -63,6 +134,7 @@ export default function SongForm() {
     const next: typeof errors = {};
     for (const f of fields) {
       if (f === "phrases") continue; // opcional
+      if (f === "namesText" && data.mentionsNames !== "Sí") continue; // solo si respondió Sí
       const v = data[f].trim();
       if (!v) next[f] = "Este campo es necesario para crear tu canción.";
       else if (f === "clientEmail" && !/^\S+@\S+\.\S+$/.test(v))
@@ -165,22 +237,6 @@ export default function SongForm() {
               />
               {errors.occasion && <p className={errCls}>{errors.occasion}</p>}
             </div>
-
-            <div>
-              <label htmlFor="name" className={labelCls}>
-                ¿Qué nombre debe mencionar la canción?
-              </label>
-              <input
-                id="name"
-                type="text"
-                value={data.name}
-                onChange={set("name")}
-                placeholder="Nombre de la persona"
-                className={inputCls}
-                aria-invalid={!!errors.name}
-              />
-              {errors.name && <p className={errCls}>{errors.name}</p>}
-            </div>
           </>
         )}
 
@@ -204,28 +260,90 @@ export default function SongForm() {
 
         {step === 2 && (
           <div>
-            <label htmlFor="style" className={labelCls}>
-              ¿Qué estilo musical prefieres?
+            <label htmlFor="imagine" className={labelCls}>
+              {formSection.imagineTitle}
             </label>
-            <select
-              id="style"
-              value={data.style}
-              onChange={set("style")}
+            <textarea
+              id="imagine"
+              rows={6}
+              value={data.imagine}
+              onChange={set("imagine")}
+              placeholder={formSection.imaginePlaceholder}
               className={inputCls}
-              aria-invalid={!!errors.style}
-            >
-              <option value="">Selecciona un estilo</option>
-              {formSection.styles.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-            {errors.style && <p className={errCls}>{errors.style}</p>}
+              aria-invalid={!!errors.imagine}
+            />
+            {errors.imagine && <p className={errCls}>{errors.imagine}</p>}
           </div>
         )}
 
         {step === 3 && (
+          <>
+            <OptionGroup
+              legend={formSection.voiceTitle}
+              name="voice"
+              options={formSection.voiceOptions}
+              value={data.voice}
+              onChange={(v) => setField("voice", v)}
+              error={errors.voice}
+            />
+            <OptionGroup
+              legend={formSection.durationTitle}
+              name="duration"
+              options={formSection.durationOptions}
+              value={data.duration}
+              onChange={(v) => setField("duration", v)}
+              error={errors.duration}
+            />
+          </>
+        )}
+
+        {step === 4 && (
+          <>
+            <OptionGroup
+              legend={formSection.namesTitle}
+              name="mentionsNames"
+              options={formSection.yesNo}
+              value={data.mentionsNames}
+              onChange={(v) => setField("mentionsNames", v)}
+              error={errors.mentionsNames}
+            />
+
+            {data.mentionsNames === "Sí" && (
+              <div>
+                <label htmlFor="namesText" className={labelCls}>
+                  {formSection.namesFollowUp}
+                </label>
+                <input
+                  id="namesText"
+                  type="text"
+                  value={data.namesText}
+                  onChange={set("namesText")}
+                  placeholder="Ej. María, Los gemelos, Don Chuy…"
+                  className={inputCls}
+                  aria-invalid={!!errors.namesText}
+                />
+                {errors.namesText && <p className={errCls}>{errors.namesText}</p>}
+              </div>
+            )}
+
+            <OptionGroup
+              legend={formSection.surpriseTitle}
+              name="surprise"
+              options={formSection.yesNo}
+              value={data.surprise}
+              onChange={(v) => setField("surprise", v)}
+              error={errors.surprise}
+            />
+
+            {data.surprise === "Sí" && (
+              <p className="rounded-xl bg-brand-paper px-4 py-3 text-sm leading-relaxed text-brand-body">
+                {formSection.surpriseInfo}
+              </p>
+            )}
+          </>
+        )}
+
+        {step === 5 && (
           <div>
             <label htmlFor="phrases" className={labelCls}>
               ¿Hay frases o palabras que la canción deba incluir?{" "}
@@ -242,7 +360,7 @@ export default function SongForm() {
           </div>
         )}
 
-        {step === 4 && (
+        {step === 6 && (
           <>
             <div>
               <label htmlFor="clientName" className={labelCls}>
@@ -299,17 +417,22 @@ export default function SongForm() {
           </>
         )}
 
-        {step === 5 && (
+        {step === 7 && (
           <div className="space-y-3">
             <h3 className="text-base font-extrabold text-brand-navy">
               Revisa tu pedido
             </h3>
-            <dl className="space-y-2 rounded-lg bg-brand-paper p-4 text-sm">
+            <dl className="space-y-2 rounded-xl bg-brand-paper p-4 text-sm">
               {[
                 ["Para", data.recipient],
                 ["Ocasión", data.occasion],
-                ["Nombre en la canción", data.name],
-                ["Estilo", data.style],
+                ["Voz", data.voice],
+                ["Duración", data.duration],
+                [
+                  "Nombres",
+                  data.mentionsNames === "Sí" ? data.namesText : "No menciona nombres",
+                ],
+                ["Sorpresa", data.surprise],
                 ["Contacto", `${data.clientName} · ${data.clientEmail}`],
               ].map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-4">

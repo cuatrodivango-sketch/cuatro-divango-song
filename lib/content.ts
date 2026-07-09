@@ -137,14 +137,19 @@ export const formSection = {
     "Amigo / amiga",
     "Otra persona especial",
   ],
-  styles: [
-    "Balada romántica",
-    "Corrido / regional",
-    "Pop",
-    "Rock",
-    "Cumbia",
-    "Himno / cántico de estadio",
-  ],
+  imagineTitle: "¿Cómo imaginas tu canción?",
+  imaginePlaceholder:
+    "Describe cómo te gustaría que se sintiera la canción, qué emociones quieres transmitir, si prefieres algo tranquilo, alegre, épico, romántico, nostálgico o cualquier otra idea que tengas.",
+  voiceTitle: "¿Qué tipo de voz prefieres?",
+  voiceOptions: ["Masculina", "Femenina", "Me es indiferente"],
+  durationTitle: "¿Cuánto debería durar aproximadamente?",
+  durationOptions: ["2 minutos", "3 minutos", "4 minutos", "No tengo preferencia"],
+  namesTitle: "¿La canción debe mencionar nombres?",
+  namesFollowUp: "¿Qué nombres deben aparecer?",
+  surpriseTitle: "¿La canción será una sorpresa?",
+  surpriseInfo:
+    "No te preocupes, prepararemos la canción para que puedas sorprender a esa persona.",
+  yesNo: ["Sí", "No"],
 };
 
 export const finalCta = {
